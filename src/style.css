@@ -1,0 +1,56 @@
+
+
+*{
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+
+.Overlay {
+  display: flex;
+  justify-content: space-around;
+  background: rgba(238, 234, 235, 0.7);
+}
+
+.customContainer{
+  background: rgba(82, 52, 52, 0.7);
+}
+.carousel-root{
+  outline: none;
+
+}
+.thumbs {
+  display: none;
+}
+.animated{
+  display: none;
+}
+.jcLxsg {
+  padding: 0;
+}
+.slider-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.carousel-status{
+  display: none;
+}
+.control-arrow{display: none;}
+
+.control-next{display: none;}
+
+.react-responsive-modal-modal{
+
+  width: 1016px;
+height: 265px;
+top: 112px;
+
+border-radius: 16px;
+gap: 8px;
+
+}
+.react-responsive-modal-closeButton{
+  display: none;
+
+}
