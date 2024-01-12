@@ -16,8 +16,13 @@ const App = () => {
       setCities(fetchedCities);
       //  console.log("location");
       
-        const successMessage = `Location  found with this Name: ${cityName}`;
+      
+    
+      if (cityName !== 'Multan') {
+        const successMessage = `Location found with this Name: ${cityName}`;
         toast.success(successMessage);
+      }
+        
     } catch (error) {
       console.error("Error fetching city data", error);  
       if (error.response && error.response.status === 404) {
