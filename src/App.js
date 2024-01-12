@@ -20,14 +20,14 @@ const App = () => {
 
       if (cityName !== 'Multan') {
         const successMessage = `Location found with this Name: ${cityName}`;
-        toast.success(successMessage);
+        toast.success(successMessage,{ delay: 0 });
       }
 
     } catch (error) {
       console.error("Error fetching city data", error);
       if (error.response && error.response.status === 404) {
         const errorMessage = `Location not found with this Name: ${cityName}`;
-        toast.error(errorMessage);
+        toast.error(errorMessage,{ delay: 0 });
       }
     }
   };
