@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Container} from 'styled-bootstrap-grid';
 import { Spacer } from './shared';
 import { FaSearch } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const App = () => {
   const [cities, setCities] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -12,13 +14,16 @@ const App = () => {
     try {
       const fetchedCities = await getCity(cityName);
       setCities(fetchedCities);
+      //  console.log("location");
+      
+        const successMessage = `Location  found with this Name: ${cityName}`;
+        toast.success(successMessage);
     } catch (error) {
       console.error("Error fetching city data", error);  
       if (error.response && error.response.status === 404) {
-        alert(`City not found. Please check the spelling and try again.`);
-      } else {
-        alert(`An error occurred while fetching city data.`);
-      } 
+        const errorMessage = `Location not found with this Name: ${cityName}`;
+        toast.error(errorMessage);
+      }
     }
   };
 
@@ -87,7 +92,7 @@ const App = () => {
         </WeatherInfo>
       </CityInfoContainer>
       <Spacer height="2"></Spacer>
-
+<ToastContainer/>
     </Container>
   );
 };
