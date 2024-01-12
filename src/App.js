@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getCity } from "./api/api";
 import styled from 'styled-components';
-import { Container} from 'styled-bootstrap-grid';
+import { Container } from 'styled-bootstrap-grid';
 import { Spacer } from './shared';
 import { FaSearch } from "react-icons/fa";
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,16 +15,16 @@ const App = () => {
       const fetchedCities = await getCity(cityName);
       setCities(fetchedCities);
       //  console.log("location");
-      
-      
-    
+
+
+
       if (cityName !== 'Multan') {
         const successMessage = `Location found with this Name: ${cityName}`;
         toast.success(successMessage);
       }
-        
+
     } catch (error) {
-      console.error("Error fetching city data", error);  
+      console.error("Error fetching city data", error);
       if (error.response && error.response.status === 404) {
         const errorMessage = `Location not found with this Name: ${cityName}`;
         toast.error(errorMessage);
@@ -46,6 +46,23 @@ const App = () => {
     getAllCity(cityToSearch);
     setSearchTerm('');
   };
+
+
+  const getWeatherImage = (weather) => {
+    switch (weather) {
+      case 'Clear':
+        return './sun.jpg';
+      case 'Clouds':
+        return './clouds.jpeg';
+      case 'Rain':
+        return './Rain.jpeg';
+      case 'Snow':
+        return './istockphoto-183522521-612x612.jpg';
+      default:
+        return 'default.jpg'; // Provide a default image or handle other cases
+    }
+
+  }
 
   return (
     <Container>
@@ -71,33 +88,41 @@ const App = () => {
           {cities?.list?.slice(0, 10)?.map((day, index) => (
             <DayInfo key={index}>
               <h1>Date:{new Date(day.dt * 1000).toLocaleDateString()}</h1>
-              <p >Sky is {day?.weather[0]?.main}</p>
+              <div style={{display:'flex',backgroundColor:'white',justifyContent:"space-between",
+              boxShadow: 'rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset'}}>
+                <p style={{display:'flex',alignItems:"center"}}> {day?.weather[0]?.main}</p>
+                <img
+                  src={getWeatherImage(day?.weather[0]?.main)}
+                  alt={`error`}
+                  style={{ maxWidth: '70px', height: '70px', backgroundColor: '' }}
+                />
+              </div>
               <p>Temp: {day?.temp?.day}</p>
               <p>Humidity: {day?.humidity}</p>
               <p>Speed: {day?.speed}</p>
-              <button 
-  style={{
-    border: '2px solid #4CAF50', 
-    // border: '2px solid #87CEEB',
-    borderRadius: '10px',
-    color: '#FFF', 
-    backgroundColor: '#4CAF50', 
-    fontFamily:'Roboto',
-    cursor: 'pointer',
-    padding: '10px 20px', 
-    fontSize: '1em', 
-    transition: 'background-color 0.3s, color 0.3s, border 0.3s', 
-    outline: 'none', 
-  }}
->
-  View more...
-</button>
+              <button
+                style={{
+                  border: '2px solid #4CAF50',
+                  // border: '2px solid #87CEEB',
+                  borderRadius: '10px',
+                  color: '#FFF',
+                  backgroundColor: '#4CAF50',
+                  fontFamily: 'Roboto',
+                  cursor: 'pointer',
+                  padding: '10px 20px',
+                  fontSize: '1em',
+                  transition: 'background-color 0.3s, color 0.3s, border 0.3s',
+                  outline: 'none',
+                }}
+              >
+                View more...
+              </button>
             </DayInfo>
           ))}
         </WeatherInfo>
       </CityInfoContainer>
       <Spacer height="2"></Spacer>
-<ToastContainer/>
+      <ToastContainer />
     </Container>
   );
 };
